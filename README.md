@@ -23,13 +23,38 @@ The core structure consists of 3 main 3D-printed parts:
 2.  **The Palmar Assembly:** Includes the thumb and the palm. This part has an opening to insert servos and connect the tendons to the servo horns.
 3.  **The Cover:** Snaps onto the palmar assembly to cover the opening, requiring no fasteners.
 
-### RoninHand-1 Printing and Support Removal
-
 ![RoninHand-1 Printing Process](img/RH1_3DP.gif)
 
 ## Project Status
 
 > The initial files (STLs, BoM, Docs) are being prepared for release and will be available on this GitHub repository soon. We will post updates on our social media channels when they are live.
+
+## Draft Bill of Materials (Per Hand)
+
+> ⚠️ **Note:** This Bill of Materials is a **draft** and currently under development. Some specifications (e.g., spring dimensions) are still to be confirmed.  
+> 💡 The components listed have similar specifications, but the **specific brands or vendors (e.g., fishing line) have not yet been tested or verified**.  
+> 💡 **Prices listed do not include shipping, taxes, tariffs, or import duties.** Final costs may vary based on supplier location and order volume.
+
+---
+
+## Component List (Canada and USA)
+
+| **Component**                                           | **Quantity**     | **Canada (CAD)** | **USA (USD)** | **Links / Options** |
+|---------------------------------------------------------|------------------|------------------|---------------|---------------------|
+| Feetech SCS0009 Digital Servos                          | 11               | $104.28          | $75.13        | [Alibaba](https://www.alibaba.com/product-detail/Feetech-SCS0009-Digital-Servo-Core-Motor_1601132782119.html) |
+| Serial Bus Servo Driver Board                           | 1                | $15.99           | $10.56        | Primary: [Canada](https://a.co/d/0MlaECV), [USA](https://a.co/d/gL7aJlg) <br> 🔁 Alternative: [Feetech FE-URT-1](https://www.alibaba.com/product-detail/Feetech-FE-URT-1-Multi-function_1600157148551.html) – CA$9.79 / US$7.05 |
+| M3 x 4 x 5 mm Threaded Heat-Set Inserts                 | 1                | $8.99            | $9.99         | [Canada](https://a.co/d/2b9fAcn), [USA](https://a.co/d/ioDsj4n) |
+| M3 x 12 mm Hex Socket Head Cap Screws                   | 1                | $10.36           | $8.99         | [Canada](https://a.co/d/2T5ncxA), [USA](https://a.co/d/d5m2FtP) |
+| Fishing Line (80 lb min, Ø 0.35–0.45 mm)                | 1                | $30.00           | $37.95        | Option 1: [Canada](https://a.co/d/7zkHzXg), [USA](https://a.co/d/fsu0T7f) <br> Option 2: [Canada](https://a.co/d/fL8LNx7), [USA](https://a.co/d/8J0bi1C) |
+| Compression Springs (0.3 mm × 4 mm × 30 mm, TBD)        | 1 (CA) / 2 (US)  | $13.66           | $15.66        | [Canada](https://a.co/d/52pY2M8), [USA](https://a.co/d/cfF1Hdi) |
+| 5V 2A DC Power Supply Adapter                           | 1                | $10.99           | $5.99         | [Canada](https://a.co/d/jaY6SDO), [USA](https://a.co/d/4bJZZjK) |
+
+---
+
+| **Total Estimated Cost** | 🇨🇦 Canada: **$194.27 CAD** | 🇺🇸 USA: **$164.27 USD** |
+|--------------------------|-----------------------------|--------------------------|
+
+
 
 ## Community & Contribution
 
