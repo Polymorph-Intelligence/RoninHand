@@ -27,7 +27,12 @@ The core structure consists of 3 main 3D-printed parts:
 
 ## Project Status
 
-> The initial files (STLs, BoM, Docs) are being prepared for release and will be available on this GitHub repository soon. We will post updates on our social media channels when they are live.
+> **V1.0 Files Released!**
+> We are excited to release the initial set of files for the RoninHand. This includes the first version of the STLs for printing and a draft Bill of Materials (BoM) to help you get started.
+>
+> **Coming Soon:**
+> *   Step-by-step assembly documentation.
+> *   Getting-started code examples.
 
 ## Draft Bill of Materials (Per Hand)
 
@@ -67,4 +72,17 @@ We welcome all contributions! Please feel free to open an issue or submit a pull
 
 ## License
 
-This project is licensed under the **Apache-2.0 License** - see the `LICENSE` file for details.
+The RoninHand project is released under two different open-source licenses.
+
+### Mechanical Design & Files
+
+The mechanical design, including all CAD and STL files, is licensed under the **Creative Commons Attribution 4.0 International License**. This means you are free to share and adapt the design for any purpose, even commercially, as long as you give appropriate credit.
+
+[![CC BY 4.0][cc-by-shield]][cc-by]
+
+[cc-by]: http://creativecommons.org/licenses/by/4.0/
+[cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
+
+### Software & Code
+
+All software, firmware, and code are licensed under the **Apache 2.0 License**. Please see the `LICENSE` file for details.
