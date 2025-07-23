@@ -1,10 +1,5 @@
 # RoninHand
 
-[![](https://img.shields.io/badge/Discord-Join%20Chat-7289DA?style=for-the-badge&logo=discord)](https://discord.gg/pruFaV6f6D)
-[![](https://img.shields.io/badge/LinkedIn-Follow%20Us-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/company/polymorph-ai/)
-
----
-
 ![RoninHand Render](img/RH1_Render.jpg)
 
 The RoninHand is an open-source, tendon-driven dexterous hand. It leverages a semi print-in-place (PIP) design that consolidates the core structure into just three 3D-printed parts to streamline assembly. The design is engineered to use common, off-the-shelf hardware, making it a practical platform for makers, researchers, and hobbyists.
@@ -66,6 +61,9 @@ This is a new project, and we want to build its future with you. There is lots o
 This is the best place to ask for help with your build, share your modifications, or brainstorm ideas for the future of the project.
 
 We welcome all contributions! Please feel free to open an issue or submit a pull request once the project files are available.
+
+[![](https://img.shields.io/badge/Discord-Join%20Chat-7289DA?style=for-the-badge&logo=discord)](https://discord.gg/pruFaV6f6D)
+[![](https://img.shields.io/badge/LinkedIn-Follow%20Us-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/company/polymorph-ai/)
 
 ## License
 
