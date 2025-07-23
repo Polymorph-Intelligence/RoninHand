@@ -72,17 +72,17 @@ We welcome all contributions! Please feel free to open an issue or submit a pull
 
 ## License
 
-The RoninHand project is released under two different open-source licenses.
+This project is made available under a dual-license structure. The project as a whole is licensed under the Apache 2.0 License, with specific exceptions for the mechanical design files.
 
-### Mechanical Design & Files
+### Overall Project & Software
 
-The mechanical design, including all CAD and STL files, is licensed under the **Creative Commons Attribution 4.0 International License**. This means you are free to share and adapt the design for any purpose, even commercially, as long as you give appropriate credit.
+The RoninHand project, including all documentation, software, and code, is licensed under the **Apache 2.0 License**. Please see the `LICENSE` file for the full text.
+
+### Mechanical Design Files
+
+All mechanical design files, including CAD and STL files, are an exception to the above and are licensed separately under the **Creative Commons Attribution 4.0 International License**. This allows you to share and adapt the design for any purpose, even commercially, as long as you give appropriate credit.
 
 [![CC BY 4.0][cc-by-shield]][cc-by]
 
 [cc-by]: http://creativecommons.org/licenses/by/4.0/
 [cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
-
-### Software & Code
-
-All software, firmware, and code are licensed under the **Apache 2.0 License**. Please see the `LICENSE` file for details.
