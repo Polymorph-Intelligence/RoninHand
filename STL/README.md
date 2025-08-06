@@ -2,7 +2,7 @@
 
 This guide provides the recommended settings and procedures for successfully printing the RoninHand components.
 
-**[![Printing & Support Removal Timelapse on YouTube](https://img.shields.io/badge/YouTube-Watch%20Timelapse-red?style=for-the-badge&logo=youtube)](https://youtu.be/dMXuFYnQiOY?feature=shared)**.
+**[![Assembly Videos on YouTube](https://img.shields.io/badge/YouTube-Watch%20Timelapse-red?style=for-the-badge&logo=youtube)](https://youtube.com/playlist?list=PLxPValukvuLW5dwUDz77fkcFmGuCXA3G4&feature=shared)**.
 
 ## 1. File Overview
 
@@ -36,7 +36,7 @@ To build a **Left Hand**, you must mirror the necessary part(s) in your slicer s
 
 Below is an example of the 'Mirror' function in a typical slicer:
 
-![Mirroring in Slicer Software](../img/Slicer_Mirror_Screenshot.jpg)
+![Mirroring in Slicer Software](../media/Slicer_Mirror_Screenshot.jpg)
 
 ## 3. Print Parameters
 

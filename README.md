@@ -1,6 +1,6 @@
 # RoninHand
 
-![RoninHand Render](img/RH1_Render.jpg)
+![RoninHand Render](media/RH1_Render.jpg)
 
 The RoninHand is an open-source, tendon-driven dexterous hand. It leverages a semi print-in-place (PIP) design that consolidates the core structure into just three 3D-printed parts to streamline assembly. The design is engineered to use common, off-the-shelf hardware, making it a practical platform for makers, researchers, and hobbyists.
 
@@ -18,18 +18,9 @@ The core structure consists of 3 main 3D-printed parts:
 2.  **The Palmar Assembly:** Includes the thumb and the palm. This part has an opening to insert servos and connect the tendons to the servo horns.
 3.  **The Cover:** Snaps onto the palmar assembly to cover the opening, requiring no fasteners.
 
-![RoninHand-1 Printing Process](img/RH1_3DP.gif)
+![RoninHand-1 Printing Process](media/RH1_3DP.gif)
 
-## Project Status
-
-> **V1.0 Files Released!**
-> We are excited to release the initial set of files for the RoninHand. This includes the first version of the STLs for printing and a draft Bill of Materials (BoM) to help you get started.
->
-> **Coming Soon:**
-> *   Step-by-step assembly documentation.
-> *   Getting-started code examples.
-
-## Draft Bill of Materials (Per Hand)
+## Bill of Materials (Per Hand)
 
 > ⚠️ **Note:** This Bill of Materials is a **draft** and currently under development. Some specifications are still to be confirmed.  
 > 💡 The components listed have similar specifications, but the **specific brands or vendors (e.g., fishing line) have not yet been tested or verified**.  
