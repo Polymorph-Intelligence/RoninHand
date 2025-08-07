@@ -1,3 +1,6 @@
+
+![RoninHand Render](media/web_interface.jpg)
+
 # RoninHand Control Center
 
 A comprehensive web-based control interface for the RoninHand robotic hand, featuring real-time 3D visualization, gesture control, hand tracking, and servo management.
@@ -17,6 +20,9 @@ A comprehensive web-based control interface for the RoninHand robotic hand, feat
 * **Device Management**: Automatic port detection and connection management
 * **URDF Model Support**: Real-time 3D rendering of the robotic hand
 * **Gesture Management**: Add, edit, import/export custom gestures
+
+
+
 
 
 ## Prerequisites
