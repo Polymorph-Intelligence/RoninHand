@@ -1,6 +1,6 @@
 # RoninHand Control Center
 
-A comprehensive web-based control interface for the RoninHand robotic hand system, featuring real-time 3D visualization, gesture control, hand tracking, and servo management.
+A comprehensive web-based control interface for the RoninHand robotic hand, featuring real-time 3D visualization, gesture control, hand tracking, and servo management.
 
 ## Features
 
@@ -97,13 +97,13 @@ The server will start on `http://localhost:8000`
 
 ```
 gesturecontrol/
+├── README.md               # This file
 ├── index.html              # Main web interface
 ├── server.py               # Python backend server
 ├── urdf-loader.js          # 3D visualization engine
 ├── gestures.json           # Gesture and servo configuration
 ├── hand_calibration.json   # Hand tracking calibration data
 ├── requirements.txt        # Python dependencies
-├── README.md              # This file
 └── media/
     └── PolymorphLogo.png
 ```

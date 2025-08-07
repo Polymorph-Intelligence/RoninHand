@@ -1,0 +1,291 @@
+<mujoco model="RoninHand">
+  
+  <!-- ========================================== -->
+  <!-- DEFAULTS -->
+  <!-- ========================================== -->
+  
+  <default>
+    <default class="robot">
+      <default class="motor">
+        <joint />
+        <motor />
+      </default>
+      <default class="visual">
+        <geom material="visualgeom" contype="0" conaffinity="0" group="2" />
+      </default>
+      <default class="collision">
+        <geom material="collision_material" condim="3" contype="0" conaffinity="1" priority="1" group="1" solref="0.005 1" friction="1 0.01 0.01" />
+        <equality solimp="0.99 0.999 1e-05" solref="0.005 1" />
+      </default>
+    </default>
+  </default>
+
+  <compiler angle="radian" />
+
+  <!-- ========================================== -->
+  <!-- ASSETS -->
+  <!-- ========================================== -->
+  
+  <asset>
+    <!-- Materials -->
+    <material name="palm_material" rgba="0.05 0.05 0.05 1" />
+    <material name="link1_material" rgba="0.9 0.9 0.9 1" />
+    <material name="default_material" rgba="0.7 0.7 0.7 1" />
+    <material name="collision_material" rgba="1.0 0.28 0.1 0.9" />
+    
+    <!-- Meshes -->
+    <mesh name="palm.stl" file="assets/palm.stl" />
+    <mesh name="link1.stl" file="assets/link1.stl" />
+    <mesh name="link2.stl" file="assets/link2.stl" />
+    <mesh name="link3.stl" file="assets/link3.stl" />
+    <mesh name="link4.stl" file="assets/link4.stl" />
+    <mesh name="thumblink1.stl" file="assets/thumblink1.stl" />
+  </asset>
+
+  <!-- ========================================== -->
+  <!-- WORLD BODY -->
+  <!-- ========================================== -->
+  
+  <worldbody>
+    <!-- Base Body: Palm -->
+    <body name="palm" pos="0.00000000 0.00000000 0.37153802" quat="1 0 0 0" childclass="robot">
+      <geom name="palm_collision" pos="1.11022e-15 0.0349554 -8.92748e-06" quat="0.9999999820587059 -0.0001894269988671448 -8.320623183283415e-17 -3.1816826721513357e-16" type="mesh" mesh="palm.stl" class="collision" />
+      <geom name="palm_visual" pos="1.11022e-15 0.0349554 -8.92748e-06" quat="0.9999999820587059 -0.0001894269988671448 -8.320623183283415e-17 -3.1816826721513357e-16" material="palm_material" type="mesh" mesh="palm.stl" class="visual" />
+      
+      <!-- Pinky Finger -->
+      <body name="link1" pos="-0.0297929 0.0116552 0.0994921" quat="0.7072398202823473 0.706973717055304 -2.719260149014978e-16 -1.5425807675463996e-16">
+        <joint name="pinky_abduction" type="hinge" ref="0.0" class="motor" range="-0.174533 0.174533" axis="0 0 1" />
+        <inertial pos="1.24592e-06 0.00948887 -0.000176014" quat="1.0 0.0 0.0 0.0" mass="0.00557921" diaginertia="6.23092e-07 2.55467e-07 7.47064e-07" />
+        <geom name="link1_collision" pos="-0.201142 -0.324957 -0.425463" quat="0.7071054825112363 -0.7071080798594735 -5.019707821600157e-16 3.4190429866654503e-16" type="mesh" mesh="link1.stl" class="collision" />
+        <geom name="link1_visual" pos="-0.201142 -0.324957 -0.425463" quat="0.7071054825112363 -0.7071080798594735 -5.019707821600157e-16 3.4190429866654503e-16" material="link1_material" type="mesh" mesh="link1.stl" class="visual" />
+        
+        <body name="link2" pos="2.46263e-06 0.0206062 0.000462132" quat="0.5000281624974363 0.5000299992068021 0.4999718357025694 0.4999699992068382">
+          <joint name="pinky_mcp" type="hinge" ref="0.0" class="motor" range="0 1.5708" axis="0 0 1" />
+          <inertial pos="0.0199139 -0.000557783 -1.32117e-07" quat="1.0 0.0 0.0 0.0" mass="0.00828121" diaginertia="3.0342e-07 1.18797e-06 1.10581e-06" />
+          <geom name="link2_collision" pos="-0.345587 -0.425925 -0.201103" quat="9.382402351633493e-07 0.7071479077225902 -9.381310990315548e-07 0.7070656522571315" type="mesh" mesh="link2.stl" class="collision" />
+          <geom name="link2_visual" pos="-0.345587 -0.425925 -0.201103" quat="9.382402351633493e-07 0.7071479077225902 -9.381310990315548e-07 0.7070656522571315" material="link1_material" type="mesh" mesh="link2.stl" class="visual" />
+          
+          <body name="link3" pos="0.035 3.98986e-17 -7.59809e-16" quat="1.0 4.520920000000009e-19 -1.6518449999999752e-19 5.47035e-15">
+            <joint name="pinky_pip" type="hinge" ref="0.0" class="motor" range="0 1.5708" axis="0 0 1" />
+            <inertial pos="0.0184522 -0.000584989 2.75006e-08" quat="1.0 0.0 0.0 0.0" mass="0.00766064" diaginertia="2.8295e-07 9.91219e-07 9.11858e-07" />
+            <geom name="link3_collision" pos="-0.380587 -0.425925 -0.201103" quat="9.382402351633513e-07 0.7071479077225902 -9.381310990315569e-07 0.7070656522571315" type="mesh" mesh="link3.stl" class="collision" />
+            <geom name="link3_visual" pos="-0.380587 -0.425925 -0.201103" quat="9.382402351633513e-07 0.7071479077225902 -9.381310990315569e-07 0.7070656522571315" material="link1_material" type="mesh" mesh="link3.stl" class="visual" />
+            
+            <body name="link4" pos="0.032 -4.85723e-17 2.74086e-16" quat="1.0 4.52072e-19 -6.325599999999998e-20 4.292435e-17">
+              <joint name="pinky_dip" type="hinge" ref="0.0" class="motor" range="0 1.5708" axis="0 0 1" />
+              <inertial pos="0.00960929 -0.000743819 1.63355e-07" quat="1.0 0.0 0.0 0.0" mass="0.00325597" diaginertia="8.33846e-08 1.7473e-07 1.71477e-07" />
+              <geom name="link4_collision" pos="-0.412587 -0.425925 -0.201103" quat="9.382402351633411e-07 0.7071479077225902 -9.381310990315467e-07 0.7070656522571315" type="mesh" mesh="link4.stl" class="collision" />
+              <geom name="link4_visual" pos="-0.412587 -0.425925 -0.201103" quat="9.382402351633411e-07 0.7071479077225902 -9.381310990315467e-07 0.7070656522571315" material="link1_material" type="mesh" mesh="link4.stl" class="visual" />
+            </body>
+          </body>
+        </body>
+      </body>
+      
+      <!-- Ring Finger -->
+      <body name="link1_2" pos="-0.0103 0.0116578 0.106154" quat="0.7072398202823473 0.706973717055304 -2.802400270115327e-16 -1.6256885308024238e-16">
+        <joint name="ring_abduction" type="hinge" ref="0.0" class="motor" range="-0.174533 0.174533" axis="0 0 1" />
+        <inertial pos="1.24592e-06 0.00948887 -0.000176014" quat="1.0 0.0 0.0 0.0" mass="0.00557921" diaginertia="6.23092e-07 2.55467e-07 7.47064e-07" />
+        <geom name="link1_2_collision" pos="-0.201142 -0.324957 -0.425463" quat="0.7071054825112363 -0.7071080798594735 2.524767875234182e-16 -2.298880825926058e-16" type="mesh" mesh="link1.stl" class="collision" />
+        <geom name="link1_2_visual" pos="-0.201142 -0.324957 -0.425463" quat="0.7071054825112363 -0.7071080798594735 2.524767875234182e-16 -2.298880825926058e-16" material="link1_material" type="mesh" mesh="link1.stl" class="visual" />
+        
+        <body name="link2_2" pos="2.46263e-06 0.0206062 0.000462132" quat="0.5000281624974336 0.5000299992068048 0.4999718357025668 0.4999699992068408">
+          <joint name="ring_mcp" type="hinge" ref="0.0" class="motor" range="0 1.5708" axis="0 0 1" />
+          <inertial pos="0.0199139 -0.000557783 -1.32117e-07" quat="1.0 0.0 0.0 0.0" mass="0.00828121" diaginertia="3.0342e-07 1.18797e-06 1.10581e-06" />
+          <geom name="link2_2_collision" pos="-0.345587 -0.425925 -0.201103" quat="9.382402351633385e-07 0.7071479077225902 -9.38131099031544e-07 0.7070656522571315" type="mesh" mesh="link2.stl" class="collision" />
+          <geom name="link2_2_visual" pos="-0.345587 -0.425925 -0.201103" quat="9.382402351633385e-07 0.7071479077225902 -9.38131099031544e-07 0.7070656522571315" material="link1_material" type="mesh" mesh="link2.stl" class="visual" />
+          
+          <body name="link3_2" pos="0.035 -4.51028e-17 -6.59195e-17" quat="1.0 4.520939999999997e-19 -1.6518450000000068e-19 -1.500315e-15">
+            <joint name="ring_pip" type="hinge" ref="0.0" class="motor" range="0 1.5708" axis="0 0 1" />
+            <inertial pos="0.0184522 -0.000584989 2.75006e-08" quat="1.0 0.0 0.0 0.0" mass="0.00766064" diaginertia="2.8295e-07 9.91219e-07 9.11858e-07" />
+            <geom name="link3_2_collision" pos="-0.380587 -0.425925 -0.201103" quat="9.38240235163359e-07 0.7071479077225902 -9.381310990315646e-07 0.7070656522571315" type="mesh" mesh="link3.stl" class="collision" />
+            <geom name="link3_2_visual" pos="-0.380587 -0.425925 -0.201103" quat="9.38240235163359e-07 0.7071479077225902 -9.381310990315646e-07 0.7070656522571315" material="link1_material" type="mesh" mesh="link3.stl" class="visual" />
+            
+            <body name="link4_2" pos="0.032 8.67362e-18 -4.18068e-16" quat="1.0 4.520755000000001e-19 -6.325599999999917e-20 1.83183e-15">
+              <joint name="ring_dip" type="hinge" ref="0.0" class="motor" range="0 1.5708" axis="0 0 1" />
+              <inertial pos="0.00960929 -0.000743819 1.63355e-07" quat="1.0 0.0 0.0 0.0" mass="0.00325597" diaginertia="8.33846e-08 1.7473e-07 1.71477e-07" />
+              <geom name="link4_2_collision" pos="-0.412587 -0.425925 -0.201103" quat="9.382402351633411e-07 0.7071479077225902 -9.381310990315467e-07 0.7070656522571315" type="mesh" mesh="link4.stl" class="collision" />
+              <geom name="link4_2_visual" pos="-0.412587 -0.425925 -0.201103" quat="9.382402351633411e-07 0.7071479077225902 -9.381310990315467e-07 0.7070656522571315" material="link1_material" type="mesh" mesh="link4.stl" class="visual" />
+            </body>
+          </body>
+        </body>
+      </body>
+      
+      <!-- Middle Finger -->
+      <body name="link1_3" pos="0.0103 0.0116578 0.106154" quat="0.7072398202823473 0.706973717055304 -2.8738929965661575e-16 -1.697158660154669e-16">
+        <joint name="middle_abduction" type="hinge" ref="0.0" class="motor" range="-0.174533 0.174533" axis="0 0 1" />
+        <inertial pos="1.24592e-06 0.00948887 -0.000176014" quat="1.0 0.0 0.0 0.0" mass="0.00557921" diaginertia="6.23092e-07 2.55467e-07 7.47064e-07" />
+        <geom name="link1_3_collision" pos="-0.201142 -0.324957 -0.425463" quat="0.7071054825112363 -0.7071080798594735 -1.6597750633889845e-17 -5.2341347219193825e-17" type="mesh" mesh="link1.stl" class="collision" />
+        <geom name="link1_3_visual" pos="-0.201142 -0.324957 -0.425463" quat="0.7071054825112363 -0.7071080798594735 -1.6597750633889845e-17 -5.2341347219193825e-17" material="link1_material" type="mesh" mesh="link1.stl" class="visual" />
+        
+        <body name="link2_3" pos="2.46263e-06 0.0206062 0.000462132" quat="0.5000281624973951 0.5000299992068433 0.4999718357025283 0.49996999920687935">
+          <joint name="middle_mcp" type="hinge" ref="0.0" class="motor" range="0 1.5708" axis="0 0 1" />
+          <inertial pos="0.0199139 -0.000557783 -1.32117e-07" quat="1.0 0.0 0.0 0.0" mass="0.00828121" diaginertia="3.0342e-07 1.18797e-06 1.10581e-06" />
+          <geom name="link2_3_collision" pos="-0.345587 -0.425925 -0.201103" quat="9.382402351633667e-07 0.7071479077225902 -9.381310990315723e-07 0.7070656522571315" type="mesh" mesh="link2.stl" class="collision" />
+          <geom name="link2_3_visual" pos="-0.345587 -0.425925 -0.201103" quat="9.382402351633667e-07 0.7071479077225902 -9.381310990315723e-07 0.7070656522571315" material="link1_material" type="mesh" mesh="link2.stl" class="visual" />
+          
+          <body name="link3_3" pos="0.035 -5.20417e-18 -6.59195e-17" quat="1.0 4.520974999999798e-19 -1.5840800000005742e-19 -1.270015e-13">
+            <joint name="middle_pip" type="hinge" ref="0.0" class="motor" range="0 1.5708" axis="0 0 1" />
+            <inertial pos="0.0184522 -0.000584989 2.75006e-08" quat="1.0 0.0 0.0 0.0" mass="0.00766064" diaginertia="2.8295e-07 9.91219e-07 9.11858e-07" />
+            <geom name="link3_3_collision" pos="-0.380587 -0.425925 -0.201103" quat="9.382402351633623e-07 0.7071479077225902 -9.381310990315679e-07 0.7070656522571315" type="mesh" mesh="link3.stl" class="collision" />
+            <geom name="link3_3_visual" pos="-0.380587 -0.425925 -0.201103" quat="9.382402351633623e-07 0.7071479077225902 -9.381310990315679e-07 0.7070656522571315" material="link1_material" type="mesh" mesh="link3.stl" class="visual" />
+            
+            <body name="link4_3" pos="0.032 -3.46945e-18 -4.18068e-16" quat="1.0 4.520780000000036e-19 -7.00324999999773e-20 5.02145e-14">
+              <joint name="middle_dip" type="hinge" ref="0.0" class="motor" range="0 1.5708" axis="0 0 1" />
+              <inertial pos="0.00960929 -0.000743819 1.63355e-07" quat="1.0 0.0 0.0 0.0" mass="0.00325597" diaginertia="8.33846e-08 1.7473e-07 1.71477e-07" />
+              <geom name="link4_3_collision" pos="-0.412587 -0.425925 -0.201103" quat="9.382402351633411e-07 0.7071479077225902 -9.381310990315467e-07 0.7070656522571315" type="mesh" mesh="link4.stl" class="collision" />
+              <geom name="link4_3_visual" pos="-0.412587 -0.425925 -0.201103" quat="9.382402351633411e-07 0.7071479077225902 -9.381310990315467e-07 0.7070656522571315" material="link1_material" type="mesh" mesh="link4.stl" class="visual" />
+            </body>
+          </body>
+        </body>
+      </body>
+      
+      <!-- Index Finger -->
+      <body name="link1_4" pos="0.0297929 0.0116552 0.0994921" quat="0.7069711192136174 -0.7072424171370416 2.303741429257891e-16 -3.123184643764408e-16">
+        <joint name="index_abduction" type="hinge" ref="0.0" class="motor" range="-0.174533 0.174533" axis="0 0 1" />
+        <inertial pos="1.24592e-06 -0.00948887 0.000176014" quat="1.0 0.0 0.0 0.0" mass="0.00557921" diaginertia="6.23092e-07 2.55467e-07 7.47064e-07" />
+        <geom name="link1_4_collision" pos="-0.201142 0.324957 0.425463" quat="0.7071054825112363 0.7071080798594735 -8.080058993380212e-21 8.08008867315177e-21" type="mesh" mesh="link1.stl" class="collision" />
+        <geom name="link1_4_visual" pos="-0.201142 0.324957 0.425463" quat="0.7071054825112363 0.7071080798594735 -8.080058993380212e-21 8.08008867315177e-21" material="link1_material" type="mesh" mesh="link1.stl" class="visual" />
+        
+        <body name="link2_4" pos="2.46263e-06 -0.0206062 -0.000462132" quat="0.500028162497435 -0.5000299992068035 0.4999718357025682 -0.49996999920683943">
+          <joint name="index_mcp" type="hinge" ref="0.0" class="motor" range="0 1.5708" axis="0 0 1" />
+          <inertial pos="0.0199139 -0.000557783 -1.32117e-07" quat="1.0 0.0 0.0 0.0" mass="0.00828121" diaginertia="3.0342e-07 1.18797e-06 1.10581e-06" />
+          <geom name="link2_4_collision" pos="-0.345587 -0.425925 -0.201103" quat="9.382402351633563e-07 0.7071479077225902 -9.381310990315618e-07 0.7070656522571315" type="mesh" mesh="link2.stl" class="collision" />
+          <geom name="link2_4_visual" pos="-0.345587 -0.425925 -0.201103" quat="9.382402351633563e-07 0.7071479077225902 -9.381310990315618e-07 0.7070656522571315" material="link1_material" type="mesh" mesh="link2.stl" class="visual" />
+          
+          <body name="link3_4" pos="0.035 -4.16334e-17 -9.71445e-17" quat="1.0 4.5209349999999825e-19 -1.6518450000000482e-19 -1.06741e-14">
+            <joint name="index_pip" type="hinge" ref="0.0" class="motor" range="0 1.5708" axis="0 0 1" />
+            <inertial pos="0.0184522 -0.000584989 2.75006e-08" quat="1.0 0.0 0.0 0.0" mass="0.00766064" diaginertia="2.8295e-07 9.91219e-07 9.11858e-07" />
+            <geom name="link3_4_collision" pos="-0.380587 -0.425925 -0.201103" quat="9.382402351633437e-07 0.7071479077225902 -9.381310990315492e-07 0.7070656522571315" type="mesh" mesh="link3.stl" class="collision" />
+            <geom name="link3_4_visual" pos="-0.380587 -0.425925 -0.201103" quat="9.382402351633437e-07 0.7071479077225902 -9.381310990315492e-07 0.7070656522571315" material="link1_material" type="mesh" mesh="link3.stl" class="visual" />
+            
+            <body name="link4_4" pos="0.032 1.21431e-17 -3.95517e-16" quat="1.0 4.520720000000005e-19 -6.325599999999679e-20 7.11715e-15">
+              <joint name="index_dip" type="hinge" ref="0.0" class="motor" range="0 1.5708" axis="0 0 1" />
+              <inertial pos="0.00960929 -0.000743819 1.63355e-07" quat="1.0 0.0 0.0 0.0" mass="0.00325597" diaginertia="8.33846e-08 1.7473e-07 1.71477e-07" />
+              <geom name="link4_4_collision" pos="-0.412587 -0.425925 -0.201103" quat="9.382402351633411e-07 0.7071479077225902 -9.381310990315467e-07 0.7070656522571315" type="mesh" mesh="link4.stl" class="collision" />
+              <geom name="link4_4_visual" pos="-0.412587 -0.425925 -0.201103" quat="9.382402351633411e-07 0.7071479077225902 -9.381310990315467e-07 0.7070656522571315" material="link1_material" type="mesh" mesh="link4.stl" class="visual" />
+            </body>
+          </body>
+        </body>
+      </body>
+      
+      <!-- Thumb -->
+      <body name="thumblink1" pos="0.0400927 -0.0290943 0.0554876" quat="0.9074679304905946 -0.2955990301111804 -0.28385510746896986 0.09246321696883793">
+        <joint name="thumb_abduction" type="hinge" ref="0.0" class="motor" range="-0.88046 0.515804" axis="0 0 1" />
+        <inertial pos="0.00203666 -0.0110464 -0.000176122" quat="1.0 0.0 0.0 0.0" mass="0.00471183" diaginertia="4.59849e-07 2.05088e-07 5.79708e-07" />
+        <geom name="thumblink1_collision" pos="-0.0464745 0.274952 0.00409008" quat="0.7041691843554044 0.7041717709179962 0.06437354770994587 0.0643733112531328" type="mesh" mesh="thumblink1.stl" class="collision" />
+        <geom name="thumblink1_visual" pos="-0.0464745 0.274952 0.00409008" quat="0.7041691843554044 0.7041717709179962 0.06437354770994587 0.0643733112531328" material="link1_material" type="mesh" mesh="thumblink1.stl" class="visual" />
+        
+        <body name="link2_5" pos="0.0037363 -0.0202646 0.000462132" quat="0.5484168379901497 0.5384010213107068 -0.45839521856566817 -0.44635987236377633">
+          <joint name="thumb_mcp" type="hinge" ref="0.0" class="motor" range="-0.0221439 1.54865" axis="0 0 1" />
+          <inertial pos="0.0199139 -0.000557783 -1.32117e-07" quat="1.0 0.0 0.0 0.0" mass="0.00828121" diaginertia="3.0342e-07 1.18797e-06 1.10581e-06" />
+          <geom name="link2_5_collision" pos="-0.345587 -0.425925 -0.201103" quat="9.382402182550449e-07 -0.7071479077225902 -9.381310821212834e-07 -0.7070656522571315" type="mesh" mesh="link2.stl" class="collision" />
+          <geom name="link2_5_visual" pos="-0.345587 -0.425925 -0.201103" quat="9.382402182550449e-07 -0.7071479077225902 -9.381310821212834e-07 -0.7070656522571315" material="link1_material" type="mesh" mesh="link2.stl" class="visual" />
+          
+          <body name="link3_5" pos="0.035 -2.32019e-17 -6.93889e-18" quat="1.0 5.04874999999997e-15 -2.7144150000000566e-15 -1.1165549999999985e-14">
+            <joint name="thumb_pip" type="hinge" ref="0.0" class="motor" range="0 1.5708" axis="0 0 1" />
+            <inertial pos="0.0184522 -0.000584989 2.75006e-08" quat="1.0 0.0 0.0 0.0" mass="0.00766064" diaginertia="2.8295e-07 9.91219e-07 9.11858e-07" />
+            <geom name="link3_5_collision" pos="-0.380587 -0.425925 -0.201103" quat="9.382401392774732e-07 -0.7071479077225902 -9.38131003134524e-07 -0.7070656522571315" type="mesh" mesh="link3.stl" class="collision" />
+            <geom name="link3_5_visual" pos="-0.380587 -0.425925 -0.201103" quat="9.382401392774732e-07 -0.7071479077225902 -9.38131003134524e-07 -0.7070656522571315" material="link1_material" type="mesh" mesh="link3.stl" class="visual" />
+            
+            <body name="link4_5" pos="0.032 -1.4962e-17 -4.3715e-16" quat="1.0 -1.1315649999997275e-14 -1.0687950000002884e-14 2.548909999999999e-13">
+              <joint name="thumb_dip" type="hinge" ref="0.0" class="motor" range="0 1.5708" axis="0 0 1" />
+              <inertial pos="0.00960929 -0.000743819 1.63355e-07" quat="1.0 0.0 0.0 0.0" mass="0.00325597" diaginertia="8.33846e-08 1.7473e-07 1.71477e-07" />
+              <geom name="link4_5_collision" pos="-0.412587 -0.425925 -0.201103" quat="9.382400516914831e-07 0.7071479077225902 -9.381309155383448e-07 0.7070656522571315" type="mesh" mesh="link4.stl" class="collision" />
+              <geom name="link4_5_visual" pos="-0.412587 -0.425925 -0.201103" quat="9.382400516914831e-07 0.7071479077225902 -9.381309155383448e-07 0.7070656522571315" material="link1_material" type="mesh" mesh="link4.stl" class="visual" />
+            </body>
+          </body>
+        </body>
+      </body>
+      
+      <!-- Sites and Cameras -->
+      <site name="palm_site" pos="0 0 0" quat="1 0 0 0" />
+      <camera name="front_camera" mode="track" fovy="90.0" quat="4.329780281177467e-17 4.329780281177466e-17 0.7071067811865475 0.7071067811865476" pos="0.0 2.0 0.5" />
+      <camera name="side_camera" mode="track" fovy="90.0" quat="-0.5 -0.4999999999999999 0.5 0.5000000000000001" pos="-2.0 0.0 0.5" />
+    </body>
+  </worldbody>
+
+  <!-- ========================================== -->
+  <!-- ACTUATORS -->
+  <!-- ========================================== -->
+  
+  <actuator>
+    <!-- Pinky Finger Actuators -->
+    <motor name="pinky_abduction_ctrl" joint="pinky_abduction" class="motor" />
+    <motor name="pinky_mcp_ctrl" joint="pinky_mcp" class="motor" />
+    <motor name="pinky_pip_ctrl" joint="pinky_pip" class="motor" />
+    <motor name="pinky_dip_ctrl" joint="pinky_dip" class="motor" />
+    
+    <!-- Ring Finger Actuators -->
+    <motor name="ring_abduction_ctrl" joint="ring_abduction" class="motor" />
+    <motor name="ring_mcp_ctrl" joint="ring_mcp" class="motor" />
+    <motor name="ring_pip_ctrl" joint="ring_pip" class="motor" />
+    <motor name="ring_dip_ctrl" joint="ring_dip" class="motor" />
+    
+    <!-- Middle Finger Actuators -->
+    <motor name="middle_abduction_ctrl" joint="middle_abduction" class="motor" />
+    <motor name="middle_mcp_ctrl" joint="middle_mcp" class="motor" />
+    <motor name="middle_pip_ctrl" joint="middle_pip" class="motor" />
+    <motor name="middle_dip_ctrl" joint="middle_dip" class="motor" />
+    
+    <!-- Index Finger Actuators -->
+    <motor name="index_abduction_ctrl" joint="index_abduction" class="motor" />
+    <motor name="index_mcp_ctrl" joint="index_mcp" class="motor" />
+    <motor name="index_pip_ctrl" joint="index_pip" class="motor" />
+    <motor name="index_dip_ctrl" joint="index_dip" class="motor" />
+    
+    <!-- Thumb Actuators -->
+    <motor name="thumb_abduction_ctrl" joint="thumb_abduction" class="motor" />
+    <motor name="thumb_mcp_ctrl" joint="thumb_mcp" class="motor" />
+    <motor name="thumb_pip_ctrl" joint="thumb_pip" class="motor" />
+    <motor name="thumb_dip_ctrl" joint="thumb_dip" class="motor" />
+  </actuator>
+
+  <!-- ========================================== -->
+  <!-- CONTACT -->
+  <!-- ========================================== -->
+  
+  <contact>
+    <!-- Pinky Finger Contact Exclusions -->
+    <exclude body1="link3" body2="link4" />
+    <exclude body1="link2" body2="link3" />
+    <exclude body1="link1" body2="link2" />
+    <exclude body1="palm" body2="link1" />
+    
+    <!-- Ring Finger Contact Exclusions -->
+    <exclude body1="link3_2" body2="link4_2" />
+    <exclude body1="link2_2" body2="link3_2" />
+    <exclude body1="link1_2" body2="link2_2" />
+    <exclude body1="palm" body2="link1_2" />
+    
+    <!-- Middle Finger Contact Exclusions -->
+    <exclude body1="link3_3" body2="link4_3" />
+    <exclude body1="link2_3" body2="link3_3" />
+    <exclude body1="link1_3" body2="link2_3" />
+    <exclude body1="palm" body2="link1_3" />
+    
+    <!-- Index Finger Contact Exclusions -->
+    <exclude body1="link3_4" body2="link4_4" />
+    <exclude body1="link2_4" body2="link3_4" />
+    <exclude body1="link1_4" body2="link2_4" />
+    <exclude body1="palm" body2="link1_4" />
+    
+    <!-- Thumb Contact Exclusions -->
+    <exclude body1="link3_5" body2="link4_5" />
+    <exclude body1="link2_5" body2="link3_5" />
+    <exclude body1="thumblink1" body2="link2_5" />
+    <exclude body1="palm" body2="thumblink1" />
+  </contact>
+
+  <!-- ========================================== -->
+  <!-- SENSORS -->
+  <!-- ========================================== -->
+  
+  <sensor>
+    <framepos name="palm_site_pos" objtype="site" objname="palm_site" />
+    <framequat name="palm_site_quat" objtype="site" objname="palm_site" />
+    <framelinvel name="palm_site_linvel" objtype="site" objname="palm_site" />
+    <frameangvel name="palm_site_angvel" objtype="site" objname="palm_site" />
+    <velocimeter name="palm_site_vel" site="palm_site" />
+  </sensor>
+  
+</mujoco>

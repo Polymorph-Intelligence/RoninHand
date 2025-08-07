@@ -1,0 +1,202 @@
+{
+  "servo_limits": {
+    "servo_1": {
+      "min": 20,
+      "max": 500
+    },
+    "servo_2": {
+      "min": 20,
+      "max": 500
+    },
+    "servo_3": {
+      "min": 20,
+      "max": 500
+    },
+    "servo_4": {
+      "min": 20,
+      "max": 500
+    },
+    "servo_5": {
+      "min": 20,
+      "max": 500
+    },
+    "servo_6": {
+      "min": 20,
+      "max": 500
+    },
+    "servo_7": {
+      "min": 20,
+      "max": 500
+    },
+    "servo_8": {
+      "min": 20,
+      "max": 500
+    },
+    "servo_9": {
+      "min": 20,
+      "max": 500
+    },
+    "servo_10": {
+      "min": 20,
+      "max": 500
+    },
+    "servo_12": {
+      "min": 20,
+      "max": 800
+    }
+  },
+  "settings": {
+    "animation_stagger_delay": 600,
+    "default_sequence_step_delay": 50,
+    "device_name": "COM6"
+  },
+  "gestures": {
+    "rock_on": {
+      "servo_1": 140,
+      "servo_7": 100,
+      "servo_2": 500,
+      "servo_3": 500,
+      "servo_4": 500,
+      "servo_5": 500,
+      "servo_6": 140,
+      "servo_8": 100,
+      "servo_9": 160,
+      "servo_10": 20,
+      "servo_12": 20
+    },
+    "handshake": {
+      "servo_1": 20,
+      "servo_7": 20,
+      "servo_2": 20,
+      "servo_3": 20,
+      "servo_4": 20,
+      "servo_5": 20,
+      "servo_6": 20,
+      "servo_8": 20,
+      "servo_9": 200,
+      "servo_10": 20,
+      "servo_12": 200
+    },
+    "grip1closed": {
+      "servo_1": 300,
+      "servo_7": 500,
+      "servo_2": 300,
+      "servo_3": 500,
+      "servo_4": 500,
+      "servo_5": 300,
+      "servo_6": 300,
+      "servo_8": 500,
+      "servo_9": 400,
+      "servo_10": 300,
+      "servo_12": 500
+    },
+    "grip1open": {
+      "servo_1": 20,
+      "servo_7": 20,
+      "servo_2": 20,
+      "servo_3": 20,
+      "servo_4": 20,
+      "servo_5": 20,
+      "servo_6": 20,
+      "servo_8": 20,
+      "servo_9": 20,
+      "servo_10": 20,
+      "servo_12": 500
+    },
+    "grip2open": {
+      "servo_1": 20,
+      "servo_7": 20,
+      "servo_2": 20,
+      "servo_3": 20,
+      "servo_4": 20,
+      "servo_5": 20,
+      "servo_6": 20,
+      "servo_8": 20,
+      "servo_9": 20,
+      "servo_10": 20,
+      "servo_12": 300
+    },
+    "grip2closed": {
+      "servo_1": 400,
+      "servo_7": 400,
+      "servo_2": 400,
+      "servo_3": 400,
+      "servo_4": 400,
+      "servo_5": 400,
+      "servo_6": 400,
+      "servo_8": 400,
+      "servo_9": 400,
+      "servo_10": 350,
+      "servo_12": 260
+    },
+    "fist": {
+      "servo_1": 500,
+      "servo_2": 500,
+      "servo_3": 500,
+      "servo_4": 500,
+      "servo_5": 500,
+      "servo_6": 500,
+      "servo_7": 500,
+      "servo_8": 500,
+      "servo_9": 500,
+      "servo_10": 500,
+      "servo_12": 800
+    },
+    "point": {
+      "servo_1": 500,
+      "servo_2": 500,
+      "servo_3": 500,
+      "servo_4": 500,
+      "servo_5": 500,
+      "servo_6": 20,
+      "servo_7": 500,
+      "servo_8": 20,
+      "servo_9": 500,
+      "servo_10": 500,
+      "servo_12": 800
+    },
+    "peace": {
+      "servo_1": 500,
+      "servo_2": 500,
+      "servo_3": 500,
+      "servo_4": 20,
+      "servo_5": 20,
+      "servo_6": 20,
+      "servo_7": 500,
+      "servo_8": 20,
+      "servo_9": 500,
+      "servo_10": 500,
+      "servo_12": 800
+    }
+  },
+  "sequences": {
+    "sequence_1": [
+      {
+        "gesture": "peace",
+        "delay": 1000
+      },
+      {
+        "gesture": "fist",
+        "delay": 1000
+      },
+      {
+        "gesture": "rock_on",
+        "delay": 1000
+      }
+    ],
+    "sequence_2": [
+      {
+        "gesture": "wave",
+        "delay": 800
+      },
+      {
+        "gesture": "grip",
+        "delay": 800
+      },
+      {
+        "gesture": "open_hand",
+        "delay": 800
+      }
+    ]
+  }
+}
