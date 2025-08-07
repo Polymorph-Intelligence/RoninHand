@@ -152,7 +152,7 @@ Calibration data is stored in `hand_calibration.json` and can be adjusted throug
 - **Calibration Problems**: Reset calibration and recalibrate hand range
 
 ### 3D Model Issues
-- **Model Not Loading**: Check that URDF and mesh files are in correct locations in `../descriptions/`
+- **Model Not Loading**: Check that URDF and mesh files are in correct locations in `descriptions/`
 - **Joints Not Moving**: Verify joint names match between URDF and servo configuration
 - **Performance Issues**: Reduce browser window size or disable hardware acceleration
 
@@ -189,7 +189,7 @@ The `requirements.txt` file contains:
 - `feetech-servo-sdk` - For servo motor communication
 
 ### External Dependencies
-- **Robot Model Files**: Located in `../descriptions/` folder
+- **Robot Model Files**: Located in `descriptions/` folder
   - URDF file for 3D visualization
   - Mesh files for visual representation
 
