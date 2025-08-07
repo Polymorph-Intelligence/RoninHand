@@ -231,6 +231,21 @@ def execute_gesture(gesture, thumb_clearance=False):
             move_servos(target_positions_int)
 
 class GestureHandler(http.server.SimpleHTTPRequestHandler):
+    def end_headers(self):
+        # Add CORS headers to allow cross-origin requests
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        super().end_headers()
+
+    def do_OPTIONS(self):
+        # Handle preflight OPTIONS requests
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.end_headers()
+
     def do_GET(self):
         if self.path == '/':
             print("Handling GET / (serving index.html)")
