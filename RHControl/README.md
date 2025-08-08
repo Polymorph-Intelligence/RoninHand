@@ -45,7 +45,7 @@ cd RoninHand
 
 ### 2. Install Python Dependencies
 ```bash
-cd gesturecontrol
+cd RHControl
 pip install -r requirements.txt
 ```
 
@@ -63,7 +63,7 @@ pip install -r requirements.txt
 
 ### Starting the Server
 ```bash
-cd gesturecontrol
+cd RHControl
 python server.py
 ```
 The server will start on `http://localhost:8000`
@@ -102,7 +102,7 @@ The server will start on `http://localhost:8000`
 ## File Structure
 
 ```
-gesturecontrol/
+RHControl/
 ├── README.md               # This file
 ├── index.html              # Main web interface
 ├── server.py               # Python backend server

@@ -2119,6 +2119,16 @@
                 resetToDefault();
                 updateStatus();
                 
+                // Set initial UI state for edit mode
+                servoControls.style.display = 'block';
+                saveBtn.style.display = 'inline-block';
+                addGestureSection.style.display = 'block';
+                gestureButtons.style.display = 'block';
+                sequenceSection.style.display = 'none';
+                animationSection.style.display = 'none';
+                handTrackingSection.style.display = 'none';
+                settingsSection.style.display = 'none';
+                
                 // Reset URDF model to default positions if ready
                 if (urdfLoader && urdfLoader.robot) {
                     resetURDFToDefault();
@@ -2130,7 +2140,123 @@
                         updateAllServosFromURDF();
                     }
                 }, 1000);
+                
+                // Start periodic URDF sync
+                startURDFSync();
+                
+                // Pause polling when user interacts with web interface
+                document.addEventListener('click', pauseURDFSync);
+                document.addEventListener('keydown', pauseURDFSync);
+                
+                // Pause polling when user interacts with gesture controls
+                const gestureButtons = document.querySelectorAll('.gesture-btn, #default-btn');
+                gestureButtons.forEach(btn => {
+                    btn.addEventListener('click', pauseURDFSync);
+                });
+                
+                // Pause polling when user moves sliders
+                const servoSliders = document.querySelectorAll('input[type="range"]');
+                servoSliders.forEach(slider => {
+                    slider.addEventListener('input', pauseURDFSync);
+                });
             });
+        }
+        
+        // Function to animate URDF to new positions smoothly
+        function animateURDFToPositions(newPositions, duration = 300) {
+            if (!urdfLoader || !urdfLoader.robot) return;
+            
+            const startTime = performance.now();
+            const startPositions = {};
+            
+            // Get current URDF positions
+            for (const [servoId, jointName] of Object.entries(jointMapping)) {
+                const joint = urdfLoader.joints.get(jointName);
+                if (joint) {
+                    startPositions[servoId] = urdfLoader.convertJointAngleToServoPosition(servoId, joint.angle, jointName);
+                }
+            }
+            
+            function animate(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easedProgress = easeInOutCubic(progress);
+                
+                // Interpolate each servo position
+                for (const [servoId, newPosition] of Object.entries(newPositions)) {
+                    const startPosition = startPositions[servoId] || 0;
+                    const currentPosition = startPosition + (newPosition - startPosition) * easedProgress;
+                    
+                    updateURDFFromServo(servoId, Math.round(currentPosition));
+                }
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                }
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Track last known positions to avoid unnecessary updates
+        let lastKnownPositions = {};
+        let userInteracting = false;
+        
+        // Function to sync URDF with current positions from server
+        function syncURDFWithCurrentPositions() {
+            if (!urdfLoader || !urdfLoader.robot) return;
+            
+            fetch('http://localhost:8000/current_positions')
+                .then(response => response.json())
+                .then(data => {
+                    // Check if positions actually changed
+                    let positionsChanged = false;
+                    for (const [servoId, position] of Object.entries(data)) {
+                        if (lastKnownPositions[servoId] !== position) {
+                            positionsChanged = true;
+                            break;
+                        }
+                    }
+                    
+                    if (positionsChanged) {
+                        // Update last known positions
+                        lastKnownPositions = { ...data };
+                        // Animate to new positions
+                        animateURDFToPositions(data, 300);
+                    }
+                })
+                .catch(err => {
+                    // Silently ignore errors to avoid console spam
+                });
+        }
+        
+        // Start periodic URDF sync (fallback to polling for now)
+        let urdfSyncInterval = null;
+        
+        function startURDFSync() {
+            // Sync every 200ms for more responsive updates
+            urdfSyncInterval = setInterval(syncURDFWithCurrentPositions, 200);
+        }
+        
+        function stopURDFSync() {
+            if (urdfSyncInterval) {
+                clearInterval(urdfSyncInterval);
+                urdfSyncInterval = null;
+            }
+        }
+        
+        // Stop polling when user interacts with web interface
+        function pauseURDFSync() {
+            // Only pause if we're not already paused
+            if (!userInteracting) {
+                userInteracting = true;
+                stopURDFSync();
+                // Resume after 1 second of no interaction
+                setTimeout(() => {
+                    userInteracting = false;
+                    startURDFSync();
+                }, 1000);
+            }
         }
 
         // Update status display
@@ -2203,7 +2329,7 @@
         const settingsModeBtn = document.getElementById('settings-mode');
         const servoControls = document.getElementById('servo-controls');
         const saveBtn = document.getElementById('save-btn');
-        const gestureSelect = document.getElementById('add-gesture');
+        const gestureSelect = document.getElementById('gesture');
         const gestureButtons = document.getElementById('gesture-buttons');
         const sequenceSection = document.getElementById('sequence-section');
         const animationSection = document.getElementById('animation-section');
@@ -2593,8 +2719,14 @@
             console.log('Saving positions');
             const gesture = document.getElementById('gesture').value;
             const positions = {};
+            
+            // Only collect servo positions from servo sliders
+            const servoSliders = document.querySelectorAll('input[type="range"]');
             servoSliders.forEach(slider => {
-                positions[slider.id] = parseInt(slider.value);
+                // Only include actual servo sliders (servo_1, servo_2, etc.)
+                if (slider.id.startsWith('servo_')) {
+                    positions[slider.id] = parseInt(slider.value);
+                }
             });
 
             try {
@@ -2675,6 +2807,9 @@
                             console.log(`Executing gesture: ${gesture}`);
                             stopSequence();
                             stopAnimation();
+                            
+                            // Force pause polling to let web UI work
+                            pauseURDFSync();
                             
                             // Update URDF model with gesture positions (animated)
                             try {
@@ -3405,7 +3540,7 @@
             fetch('http://localhost:8000/gestures')
                 .then(response => response.json())
                 .then(data => {
-                    const select = gestureSelect.querySelector('select');
+                    const select = document.getElementById('gesture');
                     select.innerHTML = '';
                     
                     // Add default option

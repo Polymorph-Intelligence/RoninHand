@@ -63,7 +63,7 @@ descriptions/
 
 ## Integration
 
-These files are used by the main control interface in the `gesturecontrol/` folder:
+These files are used by the main control interface in the `RHControl/` folder:
 - The URDF file is loaded by `urdf-loader.js` for 3D visualization
 - The server.py serves these files to the web interface
 - Mesh files are referenced by the URDF for visual representation 

@@ -54,7 +54,6 @@ This is the best place to ask for help with your build, share your modifications
 We welcome all contributions! Please feel free to open an issue or submit a pull request once the project files are available.
 
 [![](https://img.shields.io/badge/Discord-Join%20Chat-7289DA?style=for-the-badge&logo=discord)](https://discord.gg/pruFaV6f6D)
-[![](https://img.shields.io/badge/LinkedIn-Follow%20Us-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/company/polymorph-ai/)
 
 ## License
 

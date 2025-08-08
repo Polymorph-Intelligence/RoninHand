@@ -21,7 +21,7 @@ portHandler = None
 packetHandler = PacketHandler(1)
 
 # Set a timeout for servo communication (in seconds)
-SERVO_TIMEOUT = 5.0
+SERVO_TIMEOUT = 1.0  # Reduced from 5.0 for faster response
 
 # Global variable to track server shutdown
 server_shutdown = False
@@ -139,7 +139,15 @@ try:
     if not servo_limits:
         print("servo_limits not found in gestures.json. Please define servo limits.")
         sys.exit(1)
-    current_positions = {int(sid.split('_')[1]): limits["min"] for sid, limits in servo_limits.items()}
+    # Initialize current_positions with proper default positions
+    current_positions = {}
+    for sid, limits in servo_limits.items():
+        servo_id_int = int(sid.split('_')[1])
+        if sid == 'servo_12':  # Thumb MCP roll - use min
+            current_positions[servo_id_int] = limits["min"]
+        else:  # All other servos - use min + offset
+            offset = 60  # Default offset
+            current_positions[servo_id_int] = min(limits["min"] + offset, limits["max"])
 except FileNotFoundError:
     print("gestures.json not found. Please create it with initial gesture positions.")
     sys.exit(1)
@@ -208,9 +216,11 @@ def execute_gesture(gesture, thumb_clearance=False):
             return
         target_positions = gestures["gestures"][gesture]
         target_positions_int = {int(servo.split('_')[1]): value for servo, value in target_positions.items()}
-        gesture_step_delay = gestures.get("settings", {}).get("gesture_step_delay", 500) / 1000.0
 
         if thumb_clearance:
+            # Use faster delay for thumb clearance mode
+            gesture_step_delay = gestures.get("settings", {}).get("gesture_step_delay", 50) / 1000.0
+            
             # Step 1: Move servo_12 to min (thumb clearance)
             servo_12_min = servo_limits["servo_12"]["min"]
             move_servos({12: servo_12_min})
@@ -227,7 +237,7 @@ def execute_gesture(gesture, thumb_clearance=False):
             thumb_positions = {sid: target_positions_int[sid] for sid in thumb_servos if sid in target_positions_int}
             move_servos(thumb_positions)
         else:
-            # Execute gesture directly without thumb clearance
+            # Execute gesture instantly without any delays
             move_servos(target_positions_int)
 
 class GestureHandler(http.server.SimpleHTTPRequestHandler):
@@ -270,6 +280,24 @@ class GestureHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             response = {f"servo_{servo_id}": position for servo_id, position in current_positions.items()}
             self.wfile.write(json.dumps(response).encode())
+            
+        elif self.path == '/position_updates':
+            print("Handling GET /position_updates (SSE)")
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/event-stream')
+            self.send_header('Cache-Control', 'no-cache')
+            self.send_header('Connection', 'keep-alive')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            
+            # Send initial positions
+            response = {f"servo_{servo_id}": position for servo_id, position in current_positions.items()}
+            self.wfile.write(f"data: {json.dumps(response)}\n\n".encode())
+            self.wfile.flush()
+            
+            # Keep connection open for future updates
+            # Note: This is a simplified SSE implementation
+            # In a production environment, you'd want proper connection management
         elif self.path == '/servo_limits':
             print("Handling GET /servo_limits")
             self.send_response(200)
@@ -383,7 +411,15 @@ class GestureHandler(http.server.SimpleHTTPRequestHandler):
                 max_pos = gestures["servo_limits"][servo_id]["max"]
                 value = max(min_pos, min(value, max_pos))
                 servo_positions[servo_id_int] = value
-            success = move_servos(servo_positions)
+                # Update current_positions for URDF sync
+                current_positions[servo_id_int] = value
+            
+            # Only try to move servos if connected
+            if groupSyncWrite:
+                success = move_servos(servo_positions)
+            else:
+                success = True  # Consider it successful if not connected
+                
             elapsed_time = (time.time() - start_time) * 1000
             print(f"Update request handled in {elapsed_time:.2f} ms")
             self.send_response(200 if success else 500)
@@ -412,7 +448,32 @@ class GestureHandler(http.server.SimpleHTTPRequestHandler):
         elif self.path == '/execute':
             gesture = data['gesture']
             thumb_clearance = data.get('thumb_clearance', False)
-            threading.Thread(target=execute_gesture, args=(gesture, thumb_clearance)).start()
+            
+            # Get gesture positions and update current_positions for URDF sync
+            if gesture in gestures['gestures']:
+                gesture_positions = gestures['gestures'][gesture]
+                for servo_id, position in gesture_positions.items():
+                    servo_id_int = int(servo_id.split('_')[1])
+                    current_positions[servo_id_int] = position
+            
+            # Execute gesture asynchronously for instant response
+            threading.Thread(target=execute_gesture, args=(gesture, thumb_clearance), daemon=True).start()
+            self.send_response(200)
+            self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            self.send_header('Pragma', 'no-cache')
+            self.send_header('Expires', '0')
+            self.end_headers()
+            
+        elif self.path == '/reset_positions':
+            # Reset current_positions to default values
+            for servo_id, limits in gestures["servo_limits"].items():
+                servo_id_int = int(servo_id.split('_')[1])
+                if servo_id == 'servo_12':  # Thumb MCP roll - use min
+                    current_positions[servo_id_int] = limits["min"]
+                else:  # All other servos - use min + offset
+                    offset = 60  # Default offset
+                    current_positions[servo_id_int] = min(limits["min"] + offset, limits["max"])
+            
             self.send_response(200)
             self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
             self.send_header('Pragma', 'no-cache')
@@ -424,7 +485,14 @@ class GestureHandler(http.server.SimpleHTTPRequestHandler):
                 servo_positions = {}
                 for servo_id, limits in gestures["servo_limits"].items():
                     servo_id_int = int(servo_id.split('_')[1])
-                    servo_positions[servo_id_int] = limits["min"]
+                    if servo_id == 'servo_12':  # Thumb MCP roll - use min
+                        servo_positions[servo_id_int] = limits["min"]
+                    else:  # All other servos - use min + offset
+                        offset = 60  # Default offset
+                        servo_positions[servo_id_int] = min(limits["min"] + offset, limits["max"])
+                
+                # Update current_positions for URDF sync
+                current_positions.update(servo_positions)
                 
                 # Only try to move servos if connected
                 if groupSyncWrite:
