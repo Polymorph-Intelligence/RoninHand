@@ -2584,23 +2584,30 @@
         let pendingPositions = {};
         const sendUpdate = debounce(async () => {
             if (Object.keys(pendingPositions).length === 0) return;
-            if (!isConnected) {
-                console.log('Not connected to device, skipping servo update');
-                // Update UI values even if not connected
-                for (const servoId in pendingPositions) {
-                    document.getElementById(`${servoId}_value`).textContent = pendingPositions[servoId];
-                }
+            const positions = { ...pendingPositions };
                 pendingPositions = {};
+            
+            // Update UI values immediately for responsive feedback
+            for (const servoId in positions) {
+                document.getElementById(`${servoId}_value`).textContent = positions[servoId];
+            }
+            
+            if (!isConnected) {
+                console.log('Not connected to device, updating URDF only');
+                // Update URDF model immediately when not connected
+                animateURDFToPositions(positions, 100);
                 return;
             }
-            const positions = { ...pendingPositions };
-            pendingPositions = {};
+            
             try {
                 await fetchWithTimeout('http://localhost:8000/update', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ positions })
                 }, 5000);
+                
+                // Update URDF model immediately after successful update
+                animateURDFToPositions(positions, 100);
             } catch (err) {
                 console.error('Error sending update:', err);
             }
@@ -2612,7 +2619,7 @@
                 const value = parseInt(slider.value);
                 document.getElementById(`${servoId}_value`).textContent = value;
 
-                // Update URDF model in real-time
+                // Update URDF model in real-time for immediate visual feedback
                 updateURDFFromServo(servoId, value);
 
                 if (currentMode === 'edit') {

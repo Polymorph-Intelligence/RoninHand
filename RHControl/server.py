@@ -411,14 +411,20 @@ class GestureHandler(http.server.SimpleHTTPRequestHandler):
                 max_pos = gestures["servo_limits"][servo_id]["max"]
                 value = max(min_pos, min(value, max_pos))
                 servo_positions[servo_id_int] = value
-                # Update current_positions for URDF sync
-                current_positions[servo_id_int] = value
+            
+            print(f"Update request: {servo_positions}")
             
             # Only try to move servos if connected
             if groupSyncWrite:
                 success = move_servos(servo_positions)
+                # current_positions is updated by move_servos() only after successful movement
+                print(f"Servos connected, move_servos result: {success}")
             else:
                 success = True  # Consider it successful if not connected
+                # Update current_positions for URDF sync when not connected
+                for servo_id_int, value in servo_positions.items():
+                    current_positions[servo_id_int] = value
+                print(f"Servos not connected, updated current_positions: {servo_positions}")
                 
             elapsed_time = (time.time() - start_time) * 1000
             print(f"Update request handled in {elapsed_time:.2f} ms")
@@ -491,14 +497,14 @@ class GestureHandler(http.server.SimpleHTTPRequestHandler):
                         offset = 60  # Default offset
                         servo_positions[servo_id_int] = min(limits["min"] + offset, limits["max"])
                 
-                # Update current_positions for URDF sync
-                current_positions.update(servo_positions)
-                
                 # Only try to move servos if connected
                 if groupSyncWrite:
                     success = move_servos(servo_positions)
+                    # current_positions is updated by move_servos() only after successful movement
                 else:
                     success = True  # Consider it successful if not connected
+                    # Update current_positions for URDF sync when not connected
+                    current_positions.update(servo_positions)
                     
                 self.send_response(200 if success else 500)
                 self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
