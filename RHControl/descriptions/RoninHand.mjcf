@@ -34,12 +34,12 @@
     <material name="collision_material" rgba="1.0 0.28 0.1 0.9" />
     
     <!-- Meshes -->
-    <mesh name="palm.stl" file="assets/palm.stl" />
-    <mesh name="link1.stl" file="assets/link1.stl" />
-    <mesh name="link2.stl" file="assets/link2.stl" />
-    <mesh name="link3.stl" file="assets/link3.stl" />
-    <mesh name="link4.stl" file="assets/link4.stl" />
-    <mesh name="thumblink1.stl" file="assets/thumblink1.stl" />
+    <mesh name="palm.stl" file="meshes/palm.stl" />
+    <mesh name="link1.stl" file="meshes/link1.stl" />
+    <mesh name="link2.stl" file="meshes/link2.stl" />
+    <mesh name="link3.stl" file="meshes/link3.stl" />
+    <mesh name="link4.stl" file="meshes/link4.stl" />
+    <mesh name="thumblink1.stl" file="meshes/thumblink1.stl" />
   </asset>
 
   <!-- ========================================== -->
