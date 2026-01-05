@@ -1,6 +1,7 @@
 # RoninHand
 
 ![RoninHand Render](media/RH1_Render.jpg)
+![RoninHand Render](media/Print-In-Place.gif)
 ![RoninHand Render](media/web_interface.jpg)
 
 The RoninHand is an open-source, tendon-driven dexterous hand. It leverages a semi print-in-place (PIP) design that consolidates the core structure into just three 3D-printed parts to streamline assembly. The design is engineered to use common, off-the-shelf hardware, making it a practical platform for makers, researchers, and hobbyists.
